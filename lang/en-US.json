@@ -1,0 +1,213 @@
+﻿{
+	"languageTag": "en-US",
+	"fileDescription": "Strings for Poki SDK Plugn for Construc 3.",
+	"text": {
+		"plugins": {
+			"avix_pokisdk_forc3": {
+				"name": "Poki SDK",
+				"description": "Simple plugin for games to be hosted on the Poki Platform.",
+				"help-url": "https://sdk.poki.com/",
+				"properties": {
+					"site-lock-code": {
+						"name": "Site lock code",
+						"desc": "Paste the code for site locking the game. For security reasons, this piece of code is not public, so please request it from your Poki contact."
+					},
+					"debug-on-preview": {
+						"name": "Debug mode on preview",
+						"desc": "Automatically enable debug mode when running a the game in Construct's preview mode. This is necessary for ads to be shown in a local environment, and will make sure debug logs are sent to the console."
+					},
+					"automatic-suspend": {
+						"name": "Suspend automatically on Ad",
+						"desc": "When displaying and Ad, the Construct runtime will be automatically suspended and resumed when the Ad finishes."
+					},
+					"poki-enabled": {
+						"name": "Enabled",
+						"desc": "Uncheck this to ignore all PokiSDK calls."
+					},
+					"loading-notification": {
+						"name": "Loading notification",
+						"desc": "Use this to change when the PokiSDK is notified that the loading has finished.\n[i]Immediate[/i] means the notification will be sent right after C3 finishes loading.\n[i]On First Layout End[/i] means the notification will be sent right after leaving the first layout, usually that should be the loader layout.\n[i]Manual[/i] means that no automatic notifications should be sent. You will have to use the action Game Loading Finished to manually notify the PokiSDK.",
+						"items": {
+							"immediate":"Immediate",
+							"first-layout":"On First Layout End",
+							"manual":"Manual"
+						}
+					}
+				},
+				"aceCategories": {
+					"ads": "Ads",
+					"gameplay": "Gameplay",
+					"misc": "Misc"
+				},
+				"conditions": {
+					"on-commercial-break-complete": {
+						"list-name": "On commercial break complete",
+						"display-text": "On [i]{0}[/i] commercial break complete",
+						"description": "Triggered when the commercial break is over. It also triggers immediatly if there is no ad to show.",
+						"params": {
+							"tag": {
+								"name": "Tag",
+								"desc": "Leave empty to trigger for any commercial break or use a tag to trigger on specific breaks."
+							}
+						}
+					},
+					"on-commercial-break-error": {
+						"list-name": "On commercial break error",
+						"display-text": "On [i]{0}[/i] commercial break error",
+						"description": "Triggered if there was an error requesting the break. It may be that the PokiSDK didn't initialized properly, the user has some adblock, or other reason.\nThe error message can be accessed with LastError expression.",
+						"params": {
+							"tag": {
+								"name": "Tag",
+								"desc": "Leave empty to trigger for any commercial break or use a tag to trigger on specific breaks."
+							}
+						}
+					},
+					"on-rewarded-break-complete": {
+						"list-name": "On rewarded break complete",
+						"display-text": "On [i]{0}[/i] rewarded break complete",
+						"description": "Triggered when the rewarded break is over or cancelled by the user.\nTo check if the user should be rewarded use [i]Was last rewarded completed[/i] condition or the [i]LastAdRewardSuccess[/i] expression.",
+						"params": {
+							"tag": {
+								"name": "Tag",
+								"desc": "Leave empty to trigger for any commercial break or use a tag to trigger on specific breaks."
+							}
+						}
+					},
+					"on-rewarded-break-error": {
+						"list-name": "On rewarded break error",
+						"display-text": "On [i]{0}[/i] rewarded break error",
+						"description": "Triggered if there was an error requesting the break. It may be that the PokiSDK didn't initialized properly, the user has some adblock, or other reason.\nThe error message can be accessed with LastError expression.",
+						"params": {
+							"tag": {
+								"name": "Tag",
+								"desc": "Leave empty to trigger for any rewarded break or use a tag to trigger on specific breaks."
+							}
+						}
+					},
+					"last-ad-reward-success": {
+						"list-name": "Was last rewarded break completed successful",
+						"display-text": "Was last rewarded completed",
+						"description": "Will return true after a rewarded break is shown correctly. Returns false if the rewarded break was blocked or cancelled."
+					},
+					"on-commercial-break-possible-checked": {
+						"list-name": "On commercial break possible checked",
+						"display-text": "On commercial break checked",
+						"description": "Triggered after Check For Commercial Break. Use [i]Is commercial break possible[/i] to know the result"
+					},
+					"commercial-break-possible": {
+						"list-name": "Is commercial break possible",
+						"display-text": "Is commercial break possible",
+						"description": "It's true when the next commercial break request will trigger an ad. It's value is 0 otherwise.\nUseful to do some kind of transition before actually calling the commercial break.\n[b]Note:[/b] this value is not automatically updated. To do so, use the action Check For Commercial Break"
+					},
+					"ad-block-detected": {
+						"list-name": "Is AdBlock detected",
+						"display-text": "Is Adblock detected",
+						"description": "Is true if the PokiSDK is likely blocked by an AdBlock. Returns 0 otherwise."
+					},
+					"poki-sdk-loaded": {
+						"list-name": "Is SDK loaded",
+						"display-text": "Is Poki SDK loaded",
+						"description": "Is true when the Poki SDK has loaded properly and can be used, otherwise it will return false."
+					},
+					"poki-plugin-enabled": {
+						"list-name": "Is Plugin enabled",
+						"display-text": "Is Poki Plugin enabled",
+						"description": "Returns whether the plugin is enabled on this project."
+					}
+				},
+				"actions": {
+					"notify-loading-finished": {
+						"list-name": "Game Loading Finished",
+						"display-text": "Loading Finished",
+						"description": "Notify the PokiSDK that the game has finished loading. Use this when the plugin property [i]Loading notification[/i] is set to Manual"
+					},
+					"notify-gameplay-start": {
+						"list-name": "Start/Resume Gameplay",
+						"display-text": "Start Gameplay",
+						"description": "Notify the PokiSDK that gamplay has started or resuming. Refers to starting a level, resuming a paused game, etc."
+					},
+					"notify-gameplay-stop": {
+						"list-name": "Stop/Pause Gameplay",
+						"display-text": "Stop Gameplay",
+						"description": "Notify the PokiSDK that gamplay has stopped or paused. Refers to reaching the end of a level, game over, pausing the game, etc.\n[b]Note: [/b]Automatically called on ad breaks if necessary."
+					},
+					"happy-time": {
+						"list-name": "Happy Time",
+						"display-text": "Happy Time with {0} intensity",
+						"description": "Trigger a happy time event on Poki with an intensity that goes from 0 to 1.",
+						"params": {
+							"intensity": {
+								"name": "Intensity",
+								"desc": "From 0 to 1"
+							}
+						}
+					},
+					"request-commercial-break": {
+						"list-name": "Request commercial break",
+						"display-text": "Commercial break [i]{0}[/i]",
+						"description": "Display a commercial break if possible. Use [i]On commercial break complete[/i] or [i]Wait for previous action to complete[/i] to do actions after the ad.\n[b]Note: [/b]Gameplay stop will be called automatically if needed.",
+						"params": {
+							"tag": {
+								"name": "Tag",
+								"desc": "Use this to identify specific calls to commercial break, leave empty otherwise"
+							}
+						}
+					},
+					"check-commercial-break-possible": {
+						"list-name": "Check if commercial break is possible",
+						"display-text": "Check commercial break possible",
+						"description": "Check if it's possible to do a break now. Useful for doing a transition before calling the break. Will trigger [i]On commercial break checked[/i] and you can use [i]Is commercial break possible[/i] to know the result."
+					},
+					"request-rewarded-break": {
+						"list-name": "Request rewarded break",
+						"display-text": "Rewarded break [i]{0}[/i]",
+						"description": "Display a rewarded break if possible. Use [i]On rewarded break complete[/i] or [i]Wait for previous action to complete[/i] to do actions after the ad.\nUse [i]Was last rewarded completed[/i] condition or the [i]LastAdRewardSuccess[/i] expression to know if the ad was displayed correctly.\n[b]Note: [/b]Gameplay stop will be called automatically if needed.",
+						"params": {
+							"tag": {
+								"name": "Tag",
+								"desc": "Use this to identify specific calls to rewarded break, leave empty otherwise"
+							}
+						}
+					},
+					"set-debug-mode": {
+						"list-name": "Set debug mode",
+						"display-text": "Set debug: [i]{0}[/i]",
+						"description": "Manually set or unset the PokiSDK into debug mode. This is necessary for ads to be shown in a local environment, and will make sure debug logs are sent to the console.\n[b]Note:[/b] It is recommended to use Plugin property [i]Debug mode on preview[/i] instead",
+						"params": {
+							"enable": {
+								"name": "Enable",
+								"desc": "Check for enabling, or uncheck for disabling"
+							}
+						}
+					}
+				},
+				"expressions": {
+					"last-ad-reward-success": {
+						"description": "Will return 1 after a rewarded break is shown correctly. Returns 0 if the rewarded break was blocked or cancelled.",
+						"translated-name": "LastAdRewardSuccess"
+					},
+					"commercial-break-possible": {
+						"description": "It's value is 1 when the next commercial break request will trigger an ad. It's value is 0 otherwise.\nUseful to do some kind of transition before actually calling the commercial break.\n[b]Note:[/b] this value is not automatically updated. To do so, use the action Check For Commercial Break",
+						"translated-name": "CommercialBreakPossible"
+					},
+					"ad-block-detected": {
+						"description": "Returns 1 if the PokiSDK is likely blocked by an AdBlock. Returns 0 otherwise",
+						"translated-name": "AdBlockDetected"
+					},
+					"last-error": {
+						"description": "If there is an error, you can access the error message with this expression",
+						"translated-name": "LastError"
+					},
+					"poki-sdk-loaded": {
+						"description": "Is true when the Poki SDK has loaded properly and can be used, otherwise it will return false.",
+						"translated-name": "Loaded"
+					},
+					"poki-plugin-enabled": {
+						"description": "Returns whether the plugin is enabled on the project.",
+						"translated-name": "Enabled"
+					}
+				}
+			}
+		}
+	}
+}

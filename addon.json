@@ -1,0 +1,32 @@
+﻿{
+	"is-c3-addon": true,
+	"type": "plugin",
+	"name": "Poki SDK",
+	"id": "Avix_PokiSDK_ForC3",
+	"version": "0.0.0.0",
+	"author": "Avix Games",
+	"website": "https://avixgames.com/",
+	"documentation": "https://sdk.poki.com/",
+	"description": "Simple plugin for games to be hosted on the Poki Platform (https://sdk.poki.com/)",
+	"editor-scripts": [
+						"plugin.js",
+						"type.js",
+						"instance.js"
+					],
+	"file-list": [
+		"c3runtime/plugin.js",
+		"c3runtime/type.js",
+		"c3runtime/instance.js",
+		"c3runtime/conditions.js",
+		"c3runtime/actions.js",
+		"c3runtime/expressions.js",
+		"c3runtime/domSide.js",
+		"lang/en-US.json",
+		"aces.json",
+		"addon.json",
+		"icon.svg",
+		"instance.js",
+		"plugin.js",
+		"type.js"
+	]
+}

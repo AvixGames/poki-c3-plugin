@@ -1,0 +1,187 @@
+﻿{
+	"gameplay": {
+		"actions": [
+			{
+				"id": "notify-loading-finished",
+				"scriptName": "NotifyLoadingFinished"
+			},
+			{
+				"id": "notify-gameplay-start",
+				"scriptName": "NotifyGameplayStart"
+			},
+			{
+				"id": "notify-gameplay-stop",
+				"scriptName": "NotifyGameplayStop"
+			},
+			{
+				"id": "happy-time",
+				"scriptName": "HappyTime",
+				"params": [
+					{
+						"id": "intensity",
+						"type": "number"
+					}
+				]
+			}
+		]
+	},
+	"ads": {
+		"conditions": [
+			{
+				"id": "on-commercial-break-complete",
+				"scriptName": "OnCommercialBreakComplete",
+				"isTrigger": true,
+				"highlight": true,
+				"params": [
+					{
+						"id": "tag",
+						"type": "string"
+					}
+				]
+			},
+			{
+				"id": "on-commercial-break-error",
+				"scriptName": "OnCommercialBreakError",
+				"isTrigger": true,
+				"params": [
+					{
+						"id": "tag",
+						"type": "string"
+					}
+				]
+			},
+			{
+				"id": "on-rewarded-break-complete",
+				"scriptName": "OnRewardedBreakComplete",
+				"isTrigger": true,
+				"highlight": true,
+				"params": [
+					{
+						"id": "tag",
+						"type": "string"
+					}
+				]
+			},
+			{
+				"id": "on-rewarded-break-error",
+				"scriptName": "OnRewardedBreakError",
+				"isTrigger": true,
+				"params": [
+					{
+						"id": "tag",
+						"type": "string"
+					}
+				]
+			},
+			{
+				"id": "last-ad-reward-success",
+				"scriptName": "LastAdRewardSuccess",
+				"highlight": true
+			},
+			{
+				"id": "on-commercial-break-possible-checked",
+				"scriptName": "OnCommercialBreakPossibleChecked",
+				"isTrigger": true
+			},
+			{
+				"id": "commercial-break-possible",
+				"scriptName": "CommercialBreakPossible"
+			},
+			{
+				"id": "ad-block-detected",
+				"scriptName": "AdBlockDetected"
+			}
+		],
+		"actions": [
+			{
+				"id": "request-commercial-break",
+				"scriptName": "RequestCommercialBreak",
+				"highlight": true,
+				"isAsync": true,
+				"params": [
+					{
+						"id": "tag",
+						"type": "string"
+					}
+				]
+			},
+			{
+				"id": "request-rewarded-break",
+				"scriptName": "RequestRewardedBreak",
+				"highlight": true,
+				"isAsync": true,
+				"params": [
+					{
+						"id": "tag",
+						"type": "string"
+					}
+				]
+			},
+			{
+				"id": "check-commercial-break-possible",
+				"scriptName": "CheckCommercialBreakPossible",
+				"isAsync": true
+			}
+		],
+		"expressions": [
+			{
+				"id": "last-ad-reward-success",
+				"expressionName": "LastAdRewardSuccess",
+				"highlight": true,
+				"returnType": "number"
+			},
+			{
+				"id": "commercial-break-possible",
+				"expressionName": "CommercialBreakPossible",
+				"returnType": "number"
+			}
+		]
+	},
+	"misc": {
+		"conditions": [
+			{
+				"id": "poki-sdk-loaded",
+				"scriptName": "PokiSDKLoaded"
+			},
+			{
+				"id": "poki-plugin-enabled",
+				"scriptName": "PokiPluginEnabled"
+			}
+		],
+		"actions": [
+			{
+				"id": "set-debug-mode",
+				"scriptName": "SetDebugMode",
+				"params": [
+					{
+						"id": "enable",
+						"type": "boolean",
+						"initialValue": "true"
+					}
+				]
+			}
+		],
+		"expressions": [
+			{
+				"id": "ad-block-detected",
+				"expressionName": "AdBlockDetected",
+				"returnType": "number"
+			},
+			{
+				"id": "last-error",
+				"expressionName": "LastError",
+				"returnType": "string"
+			},
+			{
+				"id": "poki-sdk-loaded",
+				"expressionName": "PokiSDKLoaded",
+				"returnType": "number"
+			},
+			{
+				"id": "poki-plugin-enabled",
+				"expressionName": "PokiPluginEnabled",
+				"returnType": "number"
+			}
+		]
+	}
+}
