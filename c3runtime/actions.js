@@ -43,11 +43,6 @@
 			this._lastAdRewardedSuccess = result;	
 			if (err) this.Trigger(self.C3.Plugins.Avix_PokiSDK_ForC3.Cnds.OnRewardedBreakError);
 			else this.Trigger(self.C3.Plugins.Avix_PokiSDK_ForC3.Cnds.OnRewardedBreakComplete);
-		},
-		async CheckCommercialBreakPossible() {
-			this._commercialBreakPossible = await this.PostToDOMAsync("CheckCommercialBreakPossible");
-			this._shouldCheckForBreakPossible = false;
-			this.Trigger(self.C3.Plugins.Avix_PokiSDK_ForC3.Cnds.OnCheckBreakPossibleFinished);
 		}
 	};
 }

@@ -89,15 +89,15 @@
 						"display-text": "Was last rewarded completed",
 						"description": "Will return true after a rewarded break is shown correctly. Returns false if the rewarded break was blocked or cancelled."
 					},
-					"on-commercial-break-possible-checked": {
-						"list-name": "On commercial break possible checked",
-						"display-text": "On commercial break checked",
-						"description": "Triggered after Check For Commercial Break. Use [i]Is commercial break possible[/i] to know the result"
+					"on-commercial-break-possible": {
+						"list-name": "On commercial break possible",
+						"display-text": "On commercial possible",
+						"description": "Triggered when the time constraint on commercial breaks is lifted until the next break. Notice that rewarded breaks have no constraints."
 					},
 					"commercial-break-possible": {
 						"list-name": "Is commercial break possible",
 						"display-text": "Is commercial break possible",
-						"description": "It's true when the next commercial break request will trigger an ad. It's value is 0 otherwise.\nUseful to do some kind of transition before actually calling the commercial break.\n[b]Note:[/b] this value is not automatically updated. To do so, use the action Check For Commercial Break"
+						"description": "It's true when the next commercial break request will trigger an ad.\nUseful to do some kind of transition before actually calling the commercial break."
 					},
 					"ad-block-detected": {
 						"list-name": "Is AdBlock detected",
@@ -187,7 +187,7 @@
 						"translated-name": "LastAdRewardSuccess"
 					},
 					"commercial-break-possible": {
-						"description": "It's value is 1 when the next commercial break request will trigger an ad. It's value is 0 otherwise.\nUseful to do some kind of transition before actually calling the commercial break.\n[b]Note:[/b] this value is not automatically updated. To do so, use the action Check For Commercial Break",
+						"description": "It's true when the next commercial break request will trigger an ad.\nUseful to do some kind of transition before actually calling the commercial break.",
 						"translated-name": "CommercialBreakPossible"
 					},
 					"ad-block-detected": {

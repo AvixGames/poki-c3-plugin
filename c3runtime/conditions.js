@@ -20,14 +20,13 @@
 			return tag === "" || tag === this._lastTriggeredTag;
 		},
 
-		OnCommercialBreakPossibleChecked()
-		{
-			return true;
+		OnCommercialBreakPossible()
+		{console.log("trig "+this._commercialBreakPossible);
+			return this._commercialBreakPossible;
 		},
 		CommercialBreakPossible()
 		{
 			if (!this._pokiSDKLoaded || !this._pokiEnabled) return false;
-			if (this._shouldCheckForBreakPossible) console.log("CommercialBreakPossible should not be called every tick AND it should be used after CheckCommercialBreakPossible action");
 			return this._commercialBreakPossible;
 		},
 

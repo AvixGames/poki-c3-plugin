@@ -79,8 +79,8 @@
 				"highlight": true
 			},
 			{
-				"id": "on-commercial-break-possible-checked",
-				"scriptName": "OnCommercialBreakPossibleChecked",
+				"id": "on-commercial-break-possible",
+				"scriptName": "OnCommercialBreakPossible",
 				"isTrigger": true
 			},
 			{
@@ -116,11 +116,6 @@
 						"type": "string"
 					}
 				]
-			},
-			{
-				"id": "check-commercial-break-possible",
-				"scriptName": "CheckCommercialBreakPossible",
-				"isAsync": true
 			}
 		],
 		"expressions": [

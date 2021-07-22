@@ -11,7 +11,6 @@
 		CommercialBreakPossible()
 		{
 			if (!this._pokiSDKLoaded || !this._pokiEnabled) return false;
-			if (this._shouldCheckForBreakPossible) console.log("CommercialBreakPossible should not be called every tick AND it should be used after CheckCommercialBreakPossible action");
 			return this._commercialBreakPossible;
 		},
 

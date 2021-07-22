@@ -15,7 +15,6 @@
 			this._debugModeActive = false;
 			this._lastTriggeredTag = "";
 			this._commercialBreakPossible = false;
-			this._shouldCheckForBreakPossible = true;
 			
 			// Initialise object properties
 			this._pokiEnabled = true;
@@ -33,6 +32,12 @@
 				this._loadingNotification = properties[4];
 			}
 
+			this.AddDOMMessageHandlers([
+				["SuspendRuntime",this.SuspendRuntime.bind(this)],
+				["ResumeRuntime",this.ResumeRuntime.bind(this)],
+				["SetTimeConstraint",this.SetTimeConstraint.bind(this)],
+			])
+
 			if (this._loadingNotification === 0) {// Immediate
 				runOnStartup(async runtime => {
 					runtime.addEventListener("beforeprojectstart", () => {
@@ -49,6 +54,7 @@
 								cada.removeEventListener("beforelayoutstart",sendLoadFinishOnLayoutStart)
 							})
 					};
+					// se triggerea en el loader!! osea que esta medio mal
 					runtime.getAllLayouts().forEach(
 						cada => cada.addEventListener("beforelayoutstart",sendLoadFinishOnLayoutStart));
 				});
@@ -72,6 +78,17 @@
 						})
 						.catch(console.error));
 			}
+		}
+
+		SuspendRuntime() {
+			if (this._automaticSuspend) this._runtime.SetSuspended(true);
+		}
+		ResumeRuntime() {
+			if (this._automaticSuspend && this._runtime._suspendCount>0) this._runtime.SetSuspended(false);
+		}
+		SetTimeConstraint({constrained}) {
+			this._commercialBreakPossible = !constrained;
+			this.Trigger(self.C3.Plugins.Avix_PokiSDK_ForC3.Cnds.OnCommercialBreakPossible);
 		}
 
 		Release() {
