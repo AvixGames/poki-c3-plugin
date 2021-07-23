@@ -7,27 +7,19 @@
 		{
 			return tag === "" || tag === this._lastTriggeredTag;
 		},
-		OnCommercialBreakError(tag)
-		{
-			return tag === "" || tag === this._lastTriggeredTag;
-		},
 		OnRewardedBreakComplete(tag)
-		{
-			return tag === "" || tag === this._lastTriggeredTag;
-		},
-		OnRewardedBreakError(tag)
 		{
 			return tag === "" || tag === this._lastTriggeredTag;
 		},
 
 		OnCommercialBreakPossible()
-		{console.log("trig "+this._commercialBreakPossible);
-			return this._commercialBreakPossible;
+		{
+			return this._commercialBreakPossible && !this._adBlockDetected;
 		},
 		CommercialBreakPossible()
 		{
 			if (!this._pokiSDKLoaded || !this._pokiEnabled) return false;
-			return this._commercialBreakPossible;
+			return this._commercialBreakPossible && !this._adBlockDetected;
 		},
 
 		LastAdRewardSuccess()
@@ -45,6 +37,9 @@
 		AdBlockDetected()
 		{
 			return this._adBlockDetected;
+		},
+		PokiDebugMode() {
+			return this._debugModeActive;
 		}
 	};
 }

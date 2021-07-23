@@ -63,6 +63,11 @@
         }
         NotifyGameplayStart() {
             if (!this._pokiSDKLoaded) return;
+
+            if (!this._finishedLoadingSent) {
+                console.log("Don't forget to send the Loading Finished Notification, or configure the Poki Plugin to manage it automatically.");
+            }
+
             this._gameplayActive = true;
             PokiSDK.gameplayStart();
 
@@ -111,7 +116,7 @@
                     this.PostToRuntime("ResumeRuntime");
                     if (!PokiSDK.SDK.adTimings.requestPossible()) this.PostToRuntime("SetTimeConstraint",{constrained:true});
 
-                    if (!this._firstAdTimerDone) this._firstAdTimerDone = true;
+                    // if (!this._firstAdTimerDone) this._firstAdTimerDone = true;
                     if (this._lastAdTimer) clearTimeout(this._lastAdTimer);
                     this._lastAdTimer = setTimeout( ()=>this.checkForAdTimer() , PokiSDK.SDK.adTimings.timings.timeBetweenAds+10 );//changui para saber que el original si se triggereo
 
@@ -127,8 +132,10 @@
             if (!this._pokiSDKLoaded) return;
             PokiSDK.setDebug(this._debugModeActive = enable);
         }
-        InitPoki({ debugMode }) {
+        InitPoki({ debugMode, preventScroll }) {
             if (typeof PokiSDK !== "undefined") {
+                if (preventScroll) this.preventScroll();
+
                 this._pokiSDKLoaded = true;
                 let adBlock = false;
                 return PokiSDK.init()
@@ -150,6 +157,14 @@
                 console.log("Poki SDK failed to load");
                 return Promise.resolve({loaded: this._pokiSDKLoaded, adBlock: false});
             }
+        }
+        preventScroll() {
+            window.addEventListener('keydown', ev => {
+                if (['ArrowDown', 'ArrowUp', ' '].includes(ev.key)) {
+                    ev.preventDefault();
+                }
+            });
+            window.addEventListener('wheel', ev => ev.preventDefault(), { passive: false });
         }
 
     };

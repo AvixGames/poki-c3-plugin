@@ -11,7 +11,7 @@
 		CommercialBreakPossible()
 		{
 			if (!this._pokiSDKLoaded || !this._pokiEnabled) return false;
-			return this._commercialBreakPossible;
+			return this._commercialBreakPossible && !this._adBlockDetected;
 		},
 
 		AdBlockDetected()
@@ -30,6 +30,9 @@
 		PokiPluginEnabled()
 		{
 			return this._pokiEnabled;
+		},
+		PokiDebugMode() {
+			return this._debugModeActive;
 		}
 	};
 }

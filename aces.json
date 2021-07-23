@@ -40,32 +40,10 @@
 				]
 			},
 			{
-				"id": "on-commercial-break-error",
-				"scriptName": "OnCommercialBreakError",
-				"isTrigger": true,
-				"params": [
-					{
-						"id": "tag",
-						"type": "string"
-					}
-				]
-			},
-			{
 				"id": "on-rewarded-break-complete",
 				"scriptName": "OnRewardedBreakComplete",
 				"isTrigger": true,
 				"highlight": true,
-				"params": [
-					{
-						"id": "tag",
-						"type": "string"
-					}
-				]
-			},
-			{
-				"id": "on-rewarded-break-error",
-				"scriptName": "OnRewardedBreakError",
-				"isTrigger": true,
 				"params": [
 					{
 						"id": "tag",
@@ -141,6 +119,10 @@
 			{
 				"id": "poki-plugin-enabled",
 				"scriptName": "PokiPluginEnabled"
+			},
+			{
+				"id": "debug-mode-active",
+				"scriptName": "PokiDebugMode"
 			}
 		],
 		"actions": [
@@ -160,6 +142,11 @@
 			{
 				"id": "ad-block-detected",
 				"expressionName": "AdBlockDetected",
+				"returnType": "number"
+			},
+			{
+				"id": "debug-mode-active",
+				"expressionName": "PokiDebugMode",
 				"returnType": "number"
 			},
 			{

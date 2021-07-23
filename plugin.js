@@ -41,11 +41,13 @@
 			
 			this._info.SetProperties([
 				new SDK.PluginProperty("check", "poki-enabled", true),
-				new SDK.PluginProperty("longtext", "site-lock-code", ""),
-				//no puse un checkbox porque no quiero incluir el codigo de sitelocking de poki dentro del sdk, pues poki no quiere que sea publico
 				new SDK.PluginProperty("check", "debug-on-preview", true),
-				new SDK.PluginProperty("check", "automatic-suspend", true),
 				new SDK.PluginProperty("combo", "loading-notification", {items:["immediate","first-layout","manual"],initialValue:"immediate"}),
+				new SDK.PluginProperty("check", "automatic-suspend", true),
+				new SDK.PluginProperty("check", "prevent-scroll", true),
+				new SDK.PluginProperty("check", "adblock-sim", false),
+				new SDK.PluginProperty("link", "site-lock-help", {linkCallback:()=>window.open("https://sdk.poki.com/html5/#thats-it"),callbackType:"once-for-type"}),
+				new SDK.PluginProperty("link", "qa-link", {linkCallback:()=>window.open("https://qa.po.ki/"),callbackType:"once-for-type"}),
 			]);
 			
 			SDK.Lang.PopContext();		// .properties			

@@ -12,8 +12,18 @@
 						"name": "Site lock code",
 						"desc": "Paste the code for site locking the game. For security reasons, this piece of code is not public, so please request it from your Poki contact."
 					},
+					"site-lock-help": {
+						"name": "Site lock help",
+						"desc": "To prevent your game from being uploaded in another page outside of Poki domain you can use a sitelock code. Visit this page for more information.",
+						"link-text": "Open"
+					},
+					"qa-link": {
+						"name": "Poki sandbox site",
+						"desc": "Before submitting your game to Poki, use this page as sandbox to help you with the QA of the plugin functionality.",
+						"link-text": "Open"
+					},
 					"debug-on-preview": {
-						"name": "Debug mode on preview",
+						"name": "Debug on preview",
 						"desc": "Automatically enable debug mode when running a the game in Construct's preview mode. This is necessary for ads to be shown in a local environment, and will make sure debug logs are sent to the console."
 					},
 					"automatic-suspend": {
@@ -26,12 +36,20 @@
 					},
 					"loading-notification": {
 						"name": "Loading notification",
-						"desc": "Use this to change when the PokiSDK is notified that the loading has finished.\n[i]Immediate[/i] means the notification will be sent right after C3 finishes loading.\n[i]On First Layout End[/i] means the notification will be sent right after leaving the first layout, usually that should be the loader layout.\n[i]Manual[/i] means that no automatic notifications should be sent. You will have to use the action Game Loading Finished to manually notify the PokiSDK.",
+						"desc": "Use this to change when the PokiSDK is notified that the loading has finished.\n[i]Immediate[/i] means the notification will be sent right after C3 finishes loading.\n[i]After loader layout[/i] means the notification will be sent right after leaving the first layout, usually that should be the loader layout.\n[i]Manual[/i] means that no automatic notifications should be sent. You will have to use the action Game Loading Finished to manually notify the PokiSDK.",
 						"items": {
 							"immediate":"Immediate",
-							"first-layout":"On First Layout End",
+							"first-layout":"After loader layout",
 							"manual":"Manual"
 						}
+					},
+					"adblock-sim": {
+						"name":"Simulate AdBlock",
+						"desc":"Enable this to force the adblock test to return true. Works only on Preview"
+					},
+					"prevent-scroll": {
+						"name":"Prevent scroll",
+						"desc":"Enable this so the arrow keys up, down and the mouse wheel dont trigger scroll in the game page."
 					}
 				},
 				"aceCategories": {
@@ -51,17 +69,6 @@
 							}
 						}
 					},
-					"on-commercial-break-error": {
-						"list-name": "On commercial break error",
-						"display-text": "On [i]{0}[/i] commercial break error",
-						"description": "Triggered if there was an error requesting the break. It may be that the PokiSDK didn't initialized properly, the user has some adblock, or other reason.\nThe error message can be accessed with LastError expression.",
-						"params": {
-							"tag": {
-								"name": "Tag",
-								"desc": "Leave empty to trigger for any commercial break or use a tag to trigger on specific breaks."
-							}
-						}
-					},
 					"on-rewarded-break-complete": {
 						"list-name": "On rewarded break complete",
 						"display-text": "On [i]{0}[/i] rewarded break complete",
@@ -70,17 +77,6 @@
 							"tag": {
 								"name": "Tag",
 								"desc": "Leave empty to trigger for any commercial break or use a tag to trigger on specific breaks."
-							}
-						}
-					},
-					"on-rewarded-break-error": {
-						"list-name": "On rewarded break error",
-						"display-text": "On [i]{0}[/i] rewarded break error",
-						"description": "Triggered if there was an error requesting the break. It may be that the PokiSDK didn't initialized properly, the user has some adblock, or other reason.\nThe error message can be accessed with LastError expression.",
-						"params": {
-							"tag": {
-								"name": "Tag",
-								"desc": "Leave empty to trigger for any rewarded break or use a tag to trigger on specific breaks."
 							}
 						}
 					},
@@ -103,6 +99,11 @@
 						"list-name": "Is AdBlock detected",
 						"display-text": "Is Adblock detected",
 						"description": "Is true if the PokiSDK is likely blocked by an AdBlock. Returns 0 otherwise."
+					},
+					"debug-mode-active": {
+						"list-name": "Is debug mode active",
+						"display-text": "Is debug mode",
+						"description": "Is true when the PokiSDK is currently on debug mode."
 					},
 					"poki-sdk-loaded": {
 						"list-name": "Is SDK loaded",
@@ -193,6 +194,10 @@
 					"ad-block-detected": {
 						"description": "Returns 1 if the PokiSDK is likely blocked by an AdBlock. Returns 0 otherwise",
 						"translated-name": "AdBlockDetected"
+					},
+					"debug-mode-active": {
+						"description": "Is true when the PokiSDK is currently on debug mode.",
+						"translated-name": "PokiDebugMode"
 					},
 					"last-error": {
 						"description": "If there is an error, you can access the error message with this expression",
