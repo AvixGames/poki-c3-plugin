@@ -40,7 +40,7 @@
 			this.AddDOMMessageHandlers([
 				["SuspendRuntime", this.SuspendRuntime.bind(this)],
 				["ResumeRuntime", this.ResumeRuntime.bind(this)],
-				["SetTimeConstraint", this.SetTimeConstraint.bind(this)],
+				["SetCommercialBreakConstraint", this.SetCommercialBreakConstraint.bind(this)],
 			])
 
 			if (this._loadingNotification === 0) {// Immediate
@@ -93,7 +93,7 @@
 		ResumeRuntime() {
 			if (this._automaticSuspend && this._runtime._suspendCount > 0) this._runtime.SetSuspended(false);
 		}
-		SetTimeConstraint({ constrained }) {
+		SetCommercialBreakConstraint({ constrained }) {
 			this._commercialBreakPossible = !constrained;
 			this.Trigger(self.C3.Plugins.Avix_PokiSDK_ForC3.Cnds.OnCommercialBreakPossible);
 		}

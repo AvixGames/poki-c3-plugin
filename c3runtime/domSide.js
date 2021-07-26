@@ -18,6 +18,16 @@
     // This must also match the ID in instance.js and plugin.js.
     const DOM_COMPONENT_ID = "avix-pokisdk-forc3";
 
+    // this method is the same that PokiSDK uses to detect if navigator is mobile
+    function IsMobile() {
+        return "undefined" != typeof navigator && /(?:phone|windows\s+phone|ipod|blackberry|(?:android|bb\d+|meego|silk|googlebot) .+? mobile|palm|windows\s+ce|opera\smini|avantgo|mobilesafari|docomo)/i.test(navigator.userAgent)
+    }    
+    // this method is the same that PokiSDK uses to detect if navigator is tablet
+    // el problema es que no estoy muy seguro que comportamiento tiene Poki en las tablets :/
+    function IsTablet() {
+        return "undefined" != typeof navigator && /(?:ipad|playbook|(?:android|bb\d+|meego|silk)(?! .+? mobile))/i.test(navigator.userAgent)
+    }
+
     const HANDLER_CLASS = class PokiHandler extends self.DOMHandler {
         
         constructor(iRuntime) {
@@ -46,8 +56,8 @@
         checkForAdTimer() {
             if (PokiSDK.SDK.adTimings.requestPossible()) {
                 this._lastAdTimer = undefined;
-                if (this._firstAdTimerDone) {
-                    this.PostToRuntime("SetTimeConstraint",{constrained:false});
+                if (this._firstAdTimerDone && !IsMobile()) {//never release contraint is it's mobile
+                    this.PostToRuntime("SetCommercialBreakConstraint",{constrained:false});
                 }
             }
             else {// ponele que algo se dessincronizo o quien sabe... esto va a insistir con el chequeo
@@ -94,7 +104,7 @@
             return PokiSDK.commercialBreak()
                 .then(() => {
                     if (commercialPossible) this.PostToRuntime("ResumeRuntime");
-                    if (!PokiSDK.SDK.adTimings.requestPossible()) this.PostToRuntime("SetTimeConstraint",{constrained:true});
+                    if (!PokiSDK.SDK.adTimings.requestPossible()) this.PostToRuntime("SetCommercialBreakConstraint",{constrained:true});
 
                     if (this._firstAdTimerDone && !this._lastAdTimer) {
                         this._lastAdTimer = setTimeout( ()=>this.checkForAdTimer() , PokiSDK.SDK.adTimings.timings.timeBetweenAds+10 );//changui para saber que el original si se triggereo
@@ -114,7 +124,7 @@
             return PokiSDK.rewardedBreak()
                 .then((success) => {
                     this.PostToRuntime("ResumeRuntime");
-                    if (!PokiSDK.SDK.adTimings.requestPossible()) this.PostToRuntime("SetTimeConstraint",{constrained:true});
+                    if (!PokiSDK.SDK.adTimings.requestPossible()) this.PostToRuntime("SetCommercialBreakConstraint",{constrained:true});
 
                     // if (!this._firstAdTimerDone) this._firstAdTimerDone = true;
                     if (this._lastAdTimer) clearTimeout(this._lastAdTimer);
