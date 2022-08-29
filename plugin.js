@@ -14,7 +14,7 @@
 	const PLUGIN_ID = "Avix_PokiSDK_ForC3";
 	////////////////////////////////////////////
 	
-	const PLUGIN_VERSION = "1.0.1.0";
+	const PLUGIN_VERSION = "1.0.2.0";
 	const PLUGIN_CATEGORY = "platform-specific";
 	
 	const PLUGIN_CLASS = SDK.Plugins.Avix_PokiSDK_ForC3 = class PokiSDKC3Plugin extends SDK.IPluginBase
