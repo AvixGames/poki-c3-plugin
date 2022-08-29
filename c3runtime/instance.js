@@ -14,7 +14,6 @@
 			this._lastAdRewardedSuccess = false;
 			this._debugModeActive = false;
 			this._lastTriggeredTag = "";
-			this._commercialBreakPossible = false;
 
 			// Initialise object properties
 			this._pokiEnabled = true;
@@ -94,8 +93,7 @@
 			if (this._automaticSuspend && this._runtime._suspendCount > 0) this._runtime.SetSuspended(false);
 		}
 		SetCommercialBreakConstraint({ constrained }) {
-			this._commercialBreakPossible = !constrained;
-			this.Trigger(self.C3.Plugins.Avix_PokiSDK_ForC3.Cnds.OnCommercialBreakPossible);
+			//this.Trigger(self.C3.Plugins.Avix_PokiSDK_ForC3.Cnds.OnCommercialBreakPossible);
 		}
 
 		Release() {

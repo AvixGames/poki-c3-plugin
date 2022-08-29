@@ -59,7 +59,8 @@
 			{
 				"id": "on-commercial-break-possible",
 				"scriptName": "OnCommercialBreakPossible",
-				"isTrigger": true
+				"isTrigger": true,
+				"isDeprecated": true
 			},
 			{
 				"id": "commercial-break-possible",

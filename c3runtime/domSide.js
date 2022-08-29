@@ -37,9 +37,6 @@
             this._debugModeActive = false;
             this._gameplayActive = false;
             this._finishedLoadingSent = false;
-
-            this._firstAdTimerDone = false;
-            this._lastAdTimer = undefined;
             
             this.AddRuntimeMessageHandlers([
                 ["InitPoki", this.InitPoki.bind(this)],
@@ -51,18 +48,6 @@
                 ["SetDebugMode", this.SetDebugMode.bind(this)],
                 ["GameLoadingFinished", this.GameLoadingFinished.bind(this)],
             ]);
-        }
-
-        checkForAdTimer() {
-            if (PokiSDK.SDK.adTimings.requestPossible()) {
-                this._lastAdTimer = undefined;
-                if (this._firstAdTimerDone && !IsMobile()) {//never release contraint is it's mobile
-                    this.PostToRuntime("SetCommercialBreakConstraint",{constrained:false});
-                }
-            }
-            else {// ponele que algo se dessincronizo o quien sabe... esto va a insistir con el chequeo
-                this._lastAdTimer = setTimeout(()=>this.checkForAdTimer, 1000); // cada un segundo? see esta bien
-            }
         }
 
         GameLoadingFinished() {
@@ -80,11 +65,6 @@
 
             this._gameplayActive = true;
             PokiSDK.gameplayStart();
-
-            if (!this._firstAdTimerDone) {
-                this._firstAdTimerDone = true;
-                this._lastAdTimer = setTimeout( ()=>this.checkForAdTimer() , PokiSDK.SDK.adTimings.timings.startAdsAfter+10 );//changui para saber que el original si se triggereo
-            }
         }
         NotifyGameplayStop() {
             if (!this._pokiSDKLoaded) return;
@@ -99,17 +79,10 @@
         RequestCommercialBreak() {
             if (!this._pokiSDKLoaded) return {result:false,err:false};
             if (this._gameplayActive) this.NotifyGameplayStop();
-            const commercialPossible = this._firstAdTimerDone && PokiSDK.SDK.adTimings.requestPossible();
-            if (commercialPossible) this.PostToRuntime("SuspendRuntime");
+            this.PostToRuntime("SuspendRuntime");
             return PokiSDK.commercialBreak()
                 .then(() => {
                     if (commercialPossible) this.PostToRuntime("ResumeRuntime");
-                    if (!PokiSDK.SDK.adTimings.requestPossible()) this.PostToRuntime("SetCommercialBreakConstraint",{constrained:true});
-
-                    if (this._firstAdTimerDone && !this._lastAdTimer) {
-                        this._lastAdTimer = setTimeout( ()=>this.checkForAdTimer() , PokiSDK.SDK.adTimings.timings.timeBetweenAds+10 );//changui para saber que el original si se triggereo
-                    }
-
                     return {result:true,err:false};
                 })
                 .catch((err)=>{
@@ -124,12 +97,6 @@
             return PokiSDK.rewardedBreak()
                 .then((success) => {
                     this.PostToRuntime("ResumeRuntime");
-                    if (!PokiSDK.SDK.adTimings.requestPossible()) this.PostToRuntime("SetCommercialBreakConstraint",{constrained:true});
-
-                    // if (!this._firstAdTimerDone) this._firstAdTimerDone = true;
-                    if (this._lastAdTimer) clearTimeout(this._lastAdTimer);
-                    this._lastAdTimer = setTimeout( ()=>this.checkForAdTimer() , PokiSDK.SDK.adTimings.timings.timeBetweenAds+10 );//changui para saber que el original si se triggereo
-
                     return {result:success,err:false};
                 })
                 .catch((err)=>{
