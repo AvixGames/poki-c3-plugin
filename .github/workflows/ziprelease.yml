@@ -16,7 +16,7 @@ jobs:
         JSON="${JSON//$'\n'/'%0A'}"
         JSON="${JSON//$'\r'/'%0D'}"
         # end of optional handling for multi line json
-        echo ::set-output name=addonName::"Avix-PokiSDK-$(fromJson(content).version).c3addon"
+        echo ::set-output name=addonName::"Avix-PokiSDK-$(fromJson(JSON).version).c3addon"
 
   build:
     needs: job1
