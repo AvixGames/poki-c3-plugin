@@ -16,7 +16,7 @@ jobs:
         JSON="${JSON//$'\n'/'%0A'}"
         JSON="${JSON//$'\r'/'%0D'}"
         # end of optional handling for multi line json
-        echo ::set-output name=json::"$(JSON)"
+        echo "::set-output name=json::${JSON}"
 
   build:
     needs: getVersion
