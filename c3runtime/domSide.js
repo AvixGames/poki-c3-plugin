@@ -82,7 +82,7 @@
             this.PostToRuntime("SuspendRuntime");
             return PokiSDK.commercialBreak()
                 .then(() => {
-                    if (commercialPossible) this.PostToRuntime("ResumeRuntime");
+                    this.PostToRuntime("ResumeRuntime");
                     return {result:true,err:false};
                 })
                 .catch((err)=>{
