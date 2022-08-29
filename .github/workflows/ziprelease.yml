@@ -1,23 +1,29 @@
 name: Create Archive
 on: [push]
 jobs:
+  job1:
+    runs-on: ubuntu-latest
+    outputs:
+      addonName: ${{ steps.set-vars.outputs.addonName }}
+    steps:
+    - id: set-vars
+      run: |
+        JSON=$(cat ./addon.json)
+        # the following lines are only required for multi line json
+        JSON="${JSON//'%'/'%25'}"
+        JSON="${JSON//$'\n'/'%0A'}"
+        JSON="${JSON//$'\r'/'%0D'}"
+        # end of optional handling for multi line json
+        echo ::set-output name=addonName::"Avix-PokiSDK-$(fromJson(content).version).c3addon"
+
   build:
+    needs: job1
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: Set output variables
-      id: vars
-      run: |
-        content=$(cat ./addon.json)
-        # the following lines are only required for multi line json
-        content="${content//'%'/'%25'}"
-        content="${content//$'\n'/'%0A'}"
-        content="${content//$'\r'/'%0D'}"
-        # end of optional handling for multi line json
-        echo ::set-output name=addonName::"Avix-PokiSDK-$(fromJson(content).version).c3addon"
     - name: Archive Release
       uses: thedoctor0/zip-release@main
       with:
         type: 'zip'
-        filename: '${{ steps.vars.outputs.addonName }}'
+        filename: '${{ needs.job1.outputs.addonName }}'
         exclusions: '*.git* /*node_modules/* .editorconfig'
