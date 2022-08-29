@@ -6,6 +6,7 @@ jobs:
     outputs:
       addonName: ${{ steps.set-vars.outputs.addonName }}
     steps:
+    - uses: actions/checkout@master
     - id: set-vars
       run: |
         JSON=$(cat ./addon.json)
