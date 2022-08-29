@@ -2,7 +2,6 @@ name: Create Archive
 on: [push]
 jobs:
   build:
-    needs: getVersion
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
