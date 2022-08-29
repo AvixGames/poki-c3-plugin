@@ -17,3 +17,8 @@ jobs:
         type: 'zip'
         filename: 'Avix-PokiSDK-${{steps.version.outputs.prop}}.c3addon'
         exclusions: '*.git* /*node_modules/* .editorconfig'
+    - name: Publish Release
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: 'Avix-PokiSDK-${{steps.version.outputs.prop}}.c3addon'
+        body: "Automatic release of version ${{steps.version.outputs.prop}}"
