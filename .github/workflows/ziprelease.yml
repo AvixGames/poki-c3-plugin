@@ -1,31 +1,20 @@
 name: Create Archive
 on: [push]
 jobs:
-  getVersion:
-    runs-on: ubuntu-latest
-    outputs:
-      version: ${{ fromJson(steps.set-vars.outputs.json).version }}
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@master
-    - id: set-vars
-      run: |
-        JSON=$(cat ./addon.json)
-        # the following lines are only required for multi line json
-        JSON="${JSON//'%'/'%25'}"
-        JSON="${JSON//$'\n'/'%0A'}"
-        JSON="${JSON//$'\r'/'%0D'}"
-        # end of optional handling for multi line json
-        echo "::set-output name=json::${JSON}"
-
   build:
     needs: getVersion
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
+    - name: get version
+      id: version
+      uses: notiz-dev/github-action-json-property@release
+      with: 
+          path: 'addon.json'
+          prop_path: 'version'
     - name: Archive Release
       uses: thedoctor0/zip-release@main
       with:
         type: 'zip'
-        filename: 'Avix-PokiSDK-${{ needs.getVersion.outputs.version }}.c3addon'
+        filename: 'Avix-PokiSDK-${{steps.version.outputs.prop}}.c3addon'
         exclusions: '*.git* /*node_modules/* .editorconfig'
