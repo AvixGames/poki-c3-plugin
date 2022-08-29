@@ -8,7 +8,7 @@ jobs:
     - name: Set output variables
       id: vars
       run: |
-        content=`cat .addon.json`
+        content=`cat ./addon.json`
         # the following lines are only required for multi line json
         content="${content//'%'/'%25'}"
         content="${content//$'\n'/'%0A'}"
