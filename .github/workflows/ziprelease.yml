@@ -6,15 +6,15 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Set output variables
-        id: vars
-        run: |
-          content=`cat .addon.json`
-          # the following lines are only required for multi line json
-          content="${content//'%'/'%25'}"
-          content="${content//$'\n'/'%0A'}"
-          content="${content//$'\r'/'%0D'}"
-          # end of optional handling for multi line json
-          echo ::set-output name=addonName::"Avix-PokiSDK-$(fromJson(content).version).c3addon"
+      id: vars
+      run: |
+        content=`cat .addon.json`
+        # the following lines are only required for multi line json
+        content="${content//'%'/'%25'}"
+        content="${content//$'\n'/'%0A'}"
+        content="${content//$'\r'/'%0D'}"
+        # end of optional handling for multi line json
+        echo ::set-output name=addonName::"Avix-PokiSDK-$(fromJson(content).version).c3addon"
     - name: Archive Release
       uses: thedoctor0/zip-release@main
       with:
