@@ -115,6 +115,10 @@
 
     SuspendRuntime() {
       if (!this._automaticSuspend) return;
+      if (this._suspendTimeout <= 0) {
+        this._runtime.SetSuspended(true);
+        return;
+      }
       this._willSuspend = true;
       setTimeout(() => {
         if (!this._willSuspend) return;
