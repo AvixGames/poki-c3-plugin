@@ -39,7 +39,7 @@
           this._automaticSuspend,
           this._preventScroll,
           this._adblockSim,
-          this._willSuspend,
+          this._suspendTimeout,
         ] = properties;
       }
 
@@ -127,9 +127,10 @@
       }, this._suspendTimeout);
     }
     ResumeRuntime() {
-      if (!this._automaticSuspend || !this._runtime.IsSuspended()) return;
-      this._runtime.SetSuspended(false);
+      if (!this._automaticSuspend) return;
       this._willSuspend = false;
+      if (!this._runtime.IsSuspended()) return;
+      this._runtime.SetSuspended(false);
     }
     SetCommercialBreakConstraint({ constrained }) {
       //this.Trigger(self.C3.Plugins.Avix_PokiSDK_ForC3.Cnds.OnCommercialBreakPossible);
