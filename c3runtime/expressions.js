@@ -11,7 +11,7 @@
 		CommercialBreakPossible()
 		{
 			if (!this._pokiSDKLoaded || !this._pokiEnabled) return false;
-			return this._commercialBreakPossible && !this._adBlockDetected;
+			return !this._adBlockDetected;
 		},
 
 		AdBlockDetected()

@@ -1,0 +1,27 @@
+name: Create Archive
+on:
+  push:
+    tags:
+    - '*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: get version
+      id: version
+      uses: notiz-dev/github-action-json-property@release
+      with: 
+          path: 'addon.json'
+          prop_path: 'version'
+    - name: Archive Release
+      uses: thedoctor0/zip-release@main
+      with:
+        type: 'zip'
+        filename: 'Avix-PokiSDK-${{steps.version.outputs.prop}}.c3addon'
+        exclusions: '*.git* /*node_modules/* .editorconfig'
+    - name: Publish Release
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: 'Avix-PokiSDK-${{steps.version.outputs.prop}}.c3addon'
+        body: "Automatic release of version ${{steps.version.outputs.prop}}"
